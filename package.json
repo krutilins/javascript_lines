@@ -1,0 +1,34 @@
+{
+  "name": "lines_js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krutilins/javascript_lines.git"
+  },
+  "keywords": [
+    "lines",
+    "javascript"
+  ],
+  "author": "Krutilin_Sergey <krutilin.sergey.ks@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krutilins/javascript_lines/issues"
+  },
+  "homepage": "https://github.com/krutilins/javascript_lines#readme",
+  "devDependencies": {
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.0",
+    "html-webpack-plugin": "^4.5.0",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.1.3",
+    "webpack-cli": "^4.1.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {}
+}
