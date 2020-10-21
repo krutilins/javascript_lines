@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  background: url('https://images.pexels.com/photos/19670/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+}
+.wrapper__main {
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+}
+.app {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.restart-btn {
+ display: flex;
+ justify-content: center;
+}
+.restart-btn__button {
+  
+}
+
+.scoreboard {
+  display: inline-flex;
+}
+.scoreboard__title {
+
+}
+
+.playground {
+  display: flex;
+  flex-wrap: wrap;
+  width: 470px;
+}
+.playground__cell {
+  margin: 1px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background-color: black;
+}
+
+.balls-predictor {
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+.balls-predictor__cell {
+  background-color: black;
+  border-radius: 15px;
+  margin: 1px;
+  height: 50px;
+  width: 50px;
+}
+.cell {
+  background-color: black;
+  border-radius: 15px;
+  margin: 1px;
+  height: 50px;
+  width: 50px;
+}
