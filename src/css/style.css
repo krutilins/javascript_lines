@@ -55,6 +55,9 @@ body, html {
   border-radius: 15px;
   background-color: black;
 }
+.playground__cell_selected{
+  background: gray;
+}
 .playground__ball_aqua {
   height: 25px;
   width: 25px;
