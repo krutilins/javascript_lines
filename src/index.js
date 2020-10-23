@@ -27,18 +27,29 @@ let playground = new Playground(
   howManyBallsToGenerate, 
   ...colors
 );
-
+updateBoard.call(playground);
+// refresh
+let button = document.querySelector('.restart-btn__button');
+button.addEventListener('click', playground.refresh.bind(playground));
+// score
+let playgroundField = document.querySelector('.playground');
+playgroundField.addEventListener('click', updateBoard.bind(playground))
 /**
  * FUNCTIONS
  */
-function curry(func) {
-  return function curried(...args) {
-    if (args.length >= func.length) {
-      return func.apply(this, args);
-    } else {
-      return function(...args2) {
-        return curried.apply(this, args.concat(args2));
-      }
-    }
-  };
+function updateBoard() {
+  let board = document.querySelector('.scoreboard');
+  
+  let recored = document.createElement('div');
+  recored.classList.add('scoreboard__title');
+  recored.innerText = `Recored: ${this.recored}`;
+
+  let score = document.createElement('div');
+  score.classList.add('scoreboard__title');
+  score.innerText = `Score: ${this.score}`;
+  
+  board.children[0].replaceWith(score);
+  board.children[1].replaceWith(recored);
+  console.log(board)
 }
+
