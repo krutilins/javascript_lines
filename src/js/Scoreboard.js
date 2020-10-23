@@ -1,12 +1,12 @@
 export class Scoreboard {
-  constructor(selector, context) {
+  constructor(selector) {
     this.board = document.querySelector(selector);
-    this.context = context;
   }
   
-  bindWithElement(selector) {
+  bindWithElement(selector, context) {
     let app = document.querySelector(selector);
     app.addEventListener('click', this._updateBoard.bind(this))
+    this.context = context;
     this._updateBoard();
   }
 
