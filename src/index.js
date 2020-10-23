@@ -2,7 +2,7 @@
  * IMPORTS
  */
 import './css/style.css';
-import {Playground} from './js/Playground'
+import { Playground } from './js/Playground'
 import { Scoreboard } from './js/Scoreboard';
 /**
  * CONSTANTS
@@ -10,7 +10,6 @@ import { Scoreboard } from './js/Scoreboard';
 const playgroundColumns = 9;
 const playgroundRows = 9;
 const howManyBallsToGenerate = 3;
-
 /**
  * SCRIPT
  */
@@ -19,7 +18,7 @@ let playground = new Playground(
   playgroundColumns,
   howManyBallsToGenerate
 );
-new Scoreboard('.scoreboard', playground).bindWithElement('.playground');
+new Scoreboard('.scoreboard').bindWithElement('.playground', playground);
 // refresh
 let button = document.querySelector('.restart-btn__button');
 button.addEventListener('click', playground.clear.bind(playground));
