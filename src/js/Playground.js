@@ -87,19 +87,19 @@ export class Playground{
       for (let x = 0; x < this.rows; x++) {
         for (let y = 0; y < this.columns; y++) {
           if (matrix[x][y] == step) {
-            // to right
+            // right
             if (x + 1 < this.rows && matrix[x + 1][y] == -1) {
               matrix[x + 1][y] = step + 1;
             }
-            // to left
+            // left
             if (x - 1 >= 0 && matrix[x - 1][y] == -1) {
               matrix[x - 1][y] = step + 1;
             }
-            // to up
+            // up
             if (y + 1 < this.columns && matrix[x][y + 1] == -1) {
               matrix[x][y + 1] = step + 1;
             }
-            // to down
+            // down
             if (y - 1 >= 0 && matrix[x][y - 1] == -1) {
               matrix[x][y - 1] = step + 1;
             }
@@ -117,19 +117,19 @@ export class Playground{
       let result = [];
       while (step != 0) {
         if (toX + 1 < this.rows && matrix[toX][toY] - matrix[toX + 1][toY] == 1) {
-          // to right
+          // right
           toX = toX + 1;
           result.unshift([toX, toY]);
         } else if (toX - 1 >= 0 && matrix[toX][toY] - matrix[toX - 1][toY] == 1) {
-          // to left
+          // left
           toX = toX - 1;
           result.unshift([toX, toY]);
         } else if (toY + 1 < this.columns && matrix[toX][toY] - matrix[toX][toY + 1] == 1) {
-          // to up
+          // up
           toY = toY + 1;
           result.unshift([toX, toY]);
         } else if (toY - 1 >= 0 && matrix[toX][toY] - matrix[toX][toY - 1] == 1) {
-          // to down
+          // down
           toY = toY - 1;
           result.unshift([toX, toY]);
         }
