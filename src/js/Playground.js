@@ -1,15 +1,23 @@
 import { Utils } from "./Utils";
 
 const ZERO = 0;
-
+const colors = [
+  "aqua",
+  "blue",
+  "green",
+  "pink",
+  "red",
+  "violet",
+  "yellow"
+]
 export class Playground{
-  constructor(rows, columns, ballsCount, ...colors) {
+  constructor(rows, columns, ballsCount) {
     this.rows = rows;
     this.columns = columns;
     this.ballsCount = ballsCount;
     this.colors = colors;
+    
     this.score = 0;
-
     if (localStorage.getItem('recored')) {
       this.recored = JSON.parse(localStorage.getItem('recored'));
     } else {
@@ -20,7 +28,7 @@ export class Playground{
     this._generateBalls();
   }
 
-  refresh() {
+  clear() {
     for (let i = 0; i < this.columns; i++) {
       for (let j = 0; j < this.rows; j++) {
         if (this.playgroundCells[i][j].firstChild) {
