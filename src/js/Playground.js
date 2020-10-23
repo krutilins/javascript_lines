@@ -221,6 +221,10 @@ export class Playground{
     return isDeleted;
   }
 
+  _saveToLocalStorage() {
+
+  }
+
   _playgroundInteraction(event) {
     let element = event.target;
     if (!element.classList.contains('playground')) {
@@ -238,7 +242,7 @@ export class Playground{
         if (way.length) {
           element.insertAdjacentElement('beforeend', this._selectedCell.firstElementChild);
           this._selectedCell.classList.remove('playground__cell_selected')
-          this._selectedCell = element.firstElementChild;
+          this._selectedCell = null;
           if (!this._deleteShapes()) {
             this._generateBalls();
             this._deleteShapes()
