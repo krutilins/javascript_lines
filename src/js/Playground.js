@@ -126,6 +126,68 @@ export class Playground{
     }
   }
 
+  _deleteShapes() {
+    let resultRow = [];
+    for (let y = 0; y < this.rows; y++) {
+      let matchesInRow = [];
+      let previous = this.playgroundCells[y][0].firstElementChild?.classList[0];
+      for (let x = 0; x < this.columns; x++) {
+        let current  = this.playgroundCells[y][x].firstElementChild?.classList[0];
+        if (current != previous) {
+          if (matchesInRow[0].firstElementChild  && matchesInRow.length >= 5) {
+            resultRow.push(matchesInRow);
+          }
+          matchesInRow = [];
+        }
+        matchesInRow.push(this.playgroundCells[y][x]);
+        previous = current;
+      }
+      if (matchesInRow[0].firstElementChild && matchesInRow.length >= 5) {
+        resultRow.push(matchesInRow);
+      }
+    }
+
+    let resultColumn = [];
+    for (let x = 0; x < this.columns; x++) {
+      let matchesInRow = [];
+      let previous = this.playgroundCells[0][x].firstElementChild?.classList[0];
+      for (let y = 0; y < this.rows; y++) {
+        let current  = this.playgroundCells[y][x].firstElementChild?.classList[0];
+        if (current != previous) {
+          if (matchesInRow[0].firstElementChild  && matchesInRow.length >= 5) {
+            resultColumn.push(matchesInRow);
+          }
+          matchesInRow = [];
+        }
+        matchesInRow.push(this.playgroundCells[y][x]);
+        previous = current;
+      }
+      if (matchesInRow[0].firstElementChild && matchesInRow.length >= 5) {
+        resultColumn.push(matchesInRow);
+      }
+    }
+
+    let isDeleted = false;
+    resultColumn.forEach(row => {
+      row.forEach(item => {
+        if (item.firstElementChild) {
+          item.firstElementChild.remove();
+          isDeleted = true;
+        }
+      })
+    })
+    resultRow.forEach(row => {
+      row.forEach(item => {
+        if (item.firstElementChild) {
+          item.firstElementChild.remove();
+          isDeleted = true;
+        }
+      })
+    })
+
+    return isDeleted;
+  }
+
   _playgroundInteraction(event) {
     let element = event.target;
     if (!element.classList.contains('playground')) {
@@ -144,7 +206,9 @@ export class Playground{
           element.insertAdjacentElement('beforeend', this._selectedCell.firstElementChild);
           this._selectedCell.classList.remove('playground__cell_selected')
           this._selectedCell = element.firstElementChild;
-          this._generateBalls();
+          if (!this._deleteShapes()) {
+            this._generateBalls();
+          }
         }
       }
     }
