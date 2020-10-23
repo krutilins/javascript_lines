@@ -8,7 +8,26 @@ export class Playground{
     this.columns = columns;
     this.ballsCount = ballsCount;
     this.colors = colors;
+    this.score = 0;
+
+    if (localStorage.getItem('recored')) {
+      this.recored = JSON.parse(localStorage.getItem('recored'));
+    } else {
+      this.recored = 0;
+    }
+    
     this._drawCells();
+    this._generateBalls();
+  }
+
+  refresh() {
+    for (let i = 0; i < this.columns; i++) {
+      for (let j = 0; j < this.rows; j++) {
+        if (this.playgroundCells[i][j].firstChild) {
+          this.playgroundCells[i][j].firstChild.remove();
+        }
+      }
+    }
     this._generateBalls();
   }
 
@@ -171,6 +190,7 @@ export class Playground{
     resultColumn.forEach(row => {
       row.forEach(item => {
         if (item.firstElementChild) {
+          this.score += 2;
           item.firstElementChild.remove();
           isDeleted = true;
         }
@@ -179,11 +199,16 @@ export class Playground{
     resultRow.forEach(row => {
       row.forEach(item => {
         if (item.firstElementChild) {
+          this.score += 2;
           item.firstElementChild.remove();
           isDeleted = true;
         }
       })
     })
+    if (this.score > this.recored) {
+      this.recored = this.score;
+      localStorage.setItem('recored', JSON.stringify(this.recored));
+    }
 
     return isDeleted;
   }
@@ -208,6 +233,7 @@ export class Playground{
           this._selectedCell = element.firstElementChild;
           if (!this._deleteShapes()) {
             this._generateBalls();
+            this._deleteShapes()
           }
         }
       }

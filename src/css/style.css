@@ -21,7 +21,9 @@ body, html {
 }
 .app {
   display: flex;
-  justify-content: center;
+  height: 100%;
+  max-height: 650px;
+  justify-content: space-around;
   flex-direction: column;
 }
 
@@ -30,14 +32,35 @@ body, html {
  justify-content: center;
 }
 .restart-btn__button {
-  
+  padding: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #313131;
+  border: none;
+  border-radius: 15px;
+}
+.restart-btn__button:active {
+  background-color: #585858;
 }
 
 .scoreboard {
   display: inline-flex;
+  justify-content: space-evenly;
 }
 .scoreboard__title {
-
+  width: 45%;
+  padding: 20px 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  text-align: center;
+  background-color: rgb(32, 32, 32);
+  font-size: 25px;
+  border-radius: 15px;
 }
 
 .playground {
@@ -54,6 +77,9 @@ body, html {
   width: 50px;
   border-radius: 15px;
   background-color: black;
+}
+.playground__cell {
+  cursor: pointer;
 }
 .playground__cell_selected{
   background: gray;
