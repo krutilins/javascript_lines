@@ -2,31 +2,18 @@
  * IMPORTS
  */
 import './css/style.css';
-import { HTMLElement } from './js/HTMLElement/HTMLElement';
-import { Lines98Playground } from './js/Lines98Playground/Lines98Playground';
-import { Scoreboard } from './js/Scoreboard/Scoreboard';
+import { HTMLElement } from './js/HTML/HTMLElement/HTMLElement';
+import { Lines } from './js/LinesApp/Lines/Lines';
 /**
  * SCRIPT
  */
+const root = document.querySelector('.root');
 
-const wrapper = new HTMLElement('div', '.root', 'wrapper');
-wrapper.draw('beforeend');
+const wrapper = new HTMLElement('div', 'wrapper');
+wrapper.drawAdjacent('beforeend', root);
 
-const wrapperMain = new HTMLElement('div', '.wrapper', 'wrapper__main');
-wrapperMain.draw('beforeend');
+const wrapperMain = new HTMLElement('div', 'wrapper__main');
+wrapperMain.drawAdjacent('beforeend', wrapper.HTMLElement);
 
-const app = new HTMLElement('div', '.wrapper__main', 'app');
-app.draw('beforeend');
-
-const playground = new HTMLElement('div', '.app', 'playground')
-playground.draw('beforeend');
-
-const lines = new Lines98Playground('.playground');
-
-const board = new Scoreboard('.app', lines, 'scoreboard');
-board.draw('afterbegin');
-
-// const lines = new Lines98Playground();
-// new Scoreboard('.app', '.scoreboard').bindWithElement('.playground', lines);
-// // refresh
-// document.querySelector('.restart-btn__button').addEventListener('click', lines.reset.bind(lines));
+const lines = new Lines();
+lines.drawElementAdjacent('beforeend', wrapperMain.HTMLElement);

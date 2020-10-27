@@ -1,5 +1,5 @@
 export const ZERO = 0;
-export const COLORS = [
+export const BALL_COLORS = [
   "aqua",
   "blue",
   "green",

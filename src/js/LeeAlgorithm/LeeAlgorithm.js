@@ -1,80 +1,100 @@
 export class LeeAlgorithm {
-  constructor(matrix, x1, y1, x2, y2) {
-    this.matrix = matrix;
-    this.x1 = x1;
-    this.y1= y1;
-    this.x2 = x2;
-    this.y2 = y2;
-  }
   
-  pathfinder() {
-    const toVisit = [[this.x1, this.y1]]; // Initialise at the start square
+  static getRoute(matrix, x1, y1, x2, y2) {
+
+    return this._backtrace(...this._pathfinder(matrix, x1, y1, x2, y2));
+  
+  }
+
+  static _pathfinder(matrix, x1, y1, x2, y2) {
+    
+    const toVisit = [[x1, y1]]; // Initialise at the start square
+    let step = 1;
 
     while(toVisit.length) { // While there are still squares to visit
 
-      this.x = toVisit[0][0];
-      this.y = toVisit[0][1];
+      let x = toVisit[0][0];
+      let y = toVisit[0][1];
 
-      for (let i = this.x - 1; i < this.x + 2; i++)  {  // -1, 0, 1
-        for (let j = this.y - 1; j < this.y + 2; j++) { // -1, 0, 1
+      for (let i = x - 1; i < x + 2; i++)  {  // -1, 0, 1
+        
+        for (let j = y - 1; j < y + 2; j++) { // -1, 0, 1
 
-          if (this._neighbourCheck(i, j, 0)) {
+          if (this._neighbourCheck(matrix, x, y, x1, y1, i, j, 0)) {
 
-            this.matrix[i][j] = this.matrix[this.x][this.y] + 1;
+            matrix[i][j] = step++;
             toVisit.push([i, j]);
 
           }
 
         }
+      
       }
       
       toVisit.shift();
       
     }
 
-    this.distance = this.matrix[this.x2][this.y2];
-    return [this.matrix, this.distance];
+    return [ matrix, x2, y2, step ];
+  
   };
 
-  backtrace() { 
-    if (this.distance) {
+  static _backtrace(matrix, x2, y2) { 
+    if (matrix[x2][y2]) {
 
-      let previousValue = this.distance;
+      let previousValue = matrix[x2][y2];
       const successfulRoute = [];
 
-      this.x = this.x2;
-      this.y = this.y2;
+      let x = x2;
+      let y = y2;
 
       while (previousValue) {
         
-        if (this.y + 1 < this.matrix[0].length && this.matrix[this.x][this.y] - this.matrix[this.x][this.y + 1] == 1) {
+        if (y + 1 < matrix[0].length && matrix[x][y] - matrix[x][y + 1] == 1) {
+    
           // right
-          this.y++;
-        } else if (this.y - 1 >= 0 && this.matrix[this.x][this.y] - this.matrix[this.x][this.y - 1] == 1) {
+          y++;
+    
+        } else if (y - 1 >= 0 && matrix[x][y] - matrix[x][y - 1] == 1) {
+    
           // left
-          this.y--;
-        } else if (this.x - 1 >= 0 && this.matrix[this.x][this.y] - this.matrix[this.x - 1][this.y] == 1) {
+          y--;
+    
+        } else if (x - 1 >= 0 && matrix[x][y] - matrix[x - 1][y] == 1) {
+    
           // up
-          this.x--;
-        } else if (this.x + 1 >= this.matrix.length && this.matrix[this.x][this.y] - this.matrix[this.x + 1][this.y] == 1) {
+          x--;
+    
+        } else if (x + 1 < matrix.length && matrix[x][y] - matrix[x + 1][y] == 1) {
+    
           // down
-          this.x++;
+          x++;
+    
         }
         
-        successfulRoute.push([this.x, this.y]);
+        successfulRoute.push([x, y]);
         previousValue--;
+    
       }
+
       return successfulRoute.reverse(); // Reverse the array so it's at the start
+    
     } else {
+    
       return [];
+    
     }
+  
   };
 
-  _neighbourCheck(i, j, value) {
-    return this.matrix[i] && (this.matrix[i][j] === value) && // If array x array defined and the matrix value is 0
-    !(i === this.x && j === this.y) && // If it's not the center square
-    !(i === this.x - 1 && (j === this.y + 1 || j === this.y - 1)) && // If it's not the right or left top corner
-    !(i === this.x + 1 && (j === this.y + 1 || j === this.y - 1)) && // If it's not the right or left bottom corner
-    !(i === this.x1 && j === this.y1); // If it's not the first square
+  static _neighbourCheck(matrix, x, y, x1, y1, i, j, value) {
+  
+    return matrix[i] && (matrix[i][j] === value) && // If array x array defined and the matrix value is 0
+    !(i === x && j === y) && // If it's not the center square
+    !(i === x - 1 && (j === y + 1 || j === y - 1)) && // If it's not the right or left top corner
+    !(i === x + 1 && (j === y + 1 || j === y - 1)) && // If it's not the right or left bottom corner
+    !(i === x1 && j === y1); // If it's not the first square
+  
   };
+
 }
