@@ -108,6 +108,27 @@ export class Playground{
   
   }
 
+  _drawLines(route) {
+    const promises = [];
+
+    for (let i = 1; i < route.length - 1; i++) {
+      promises.push(new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const smallBall = document.createElement('div');
+          smallBall.classList.add('playground__ball_small');
+          this.gridCells[route[i][1]][route[i][0]].insertAdjacentElement('beforeend', smallBall);
+          setTimeout(() => {
+            smallBall.remove();
+            resolve();
+          }, 50);
+        }, 50 * i, this);
+      }))
+    }
+    console.log();
+    return Promise.all(promises);
+
+  }
+
   playgroundInteraction(event) {
     
     let target = event.target;
@@ -137,16 +158,21 @@ export class Playground{
 
         if (route.length) {
          
-          this._moveBall(target, route);
-
-          this._ballsIsDeleted = MatchesDeleter.deleteMatches(this.gridCells);
+          this._drawLines(route)
+          .then(() => {
+            console.log('asdf')
+            this._moveBall(target, route)
           
-          if (!this._ballsIsDeleted) {
-            BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
-            this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells)
-          }
+            this._ballsIsDeleted = MatchesDeleter.deleteMatches(this.gridCells);
+            
+            if (!this._ballsIsDeleted) {
+              BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
+              this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells)
+            }
+            
+            this._updateLocaleStorage();
           
-          this._updateLocaleStorage();
+          })
         
         }
       
