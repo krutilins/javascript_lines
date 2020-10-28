@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  background: url('https://images.pexels.com/photos/19670/pexels-photo.jpg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260');
+}
+.wrapper__main {
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+}
+.app {
+  display: flex;
+  height: 100%;
+  max-height: 650px;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.restart-btn {
+ display: flex;
+ justify-content: center;
+}
+.restart-btn__button {
+  padding: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #fff;
+  background-color: #313131;
+  border: none;
+  border-radius: 15px;
+}
+.restart-btn__button:active {
+  background-color: #585858;
+}
+
+.scoreboard {
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+.scoreboard__recored {
+  width: 45%;
+  padding: 20px 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  text-align: center;
+  background-color: rgb(32, 32, 32);
+  font-size: 25px;
+  border-radius: 15px;
+}
+.scoreboard__score {
+  width: 45%;
+  padding: 20px 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: white;
+  text-align: center;
+  background-color: rgb(32, 32, 32);
+  font-size: 25px;
+  border-radius: 15px;
+}
+
+.playground {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 470px;
+}
+.playground__cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background-color: black;
+}
+.playground__cell {
+  cursor: pointer;
+}
+.playground__cell_selected{
+  background: gray;
+}
+.playground__ball_aqua {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: aqua;
+}
+.playground__ball_blue {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: blue;
+}
+.playground__ball_green {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: green;
+}
+.playground__ball_pink {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: pink;
+}
+.playground__ball_red {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: red;
+}
+.playground__ball_violet {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: violet;
+}
+.playground__ball_yellow {
+  height: 25px;
+  width: 25px;
+  border-radius: 25px;
+  background-color: yellow;
+}
+.playground__ball_small {
+  height: 15px;
+  width: 15px;
+  border-radius: 25px;
+  background-color: white;
+}
+
+.balls-predictor {
+  display: inline-flex;
+  justify-content: space-evenly;
+}
+.balls-predictor__cell {
+  margin: 1px;
+  height: 50px;
+  width: 50px;
+  border-radius: 15px;
+  background-color: black;
+}
