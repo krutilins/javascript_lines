@@ -26,7 +26,6 @@ export class Playground{
     const grid = new HTMLGrid('div', 9, 9, 'playground__cell');
     grid.drawAdjacent('beforeend', this._playground.HTMLElement);
 
-    this._ballsIsDeleted = Number(localStorage.getItem('score'));
     this.countBallsToGenerate = 3;
     BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
 
@@ -140,7 +139,7 @@ export class Playground{
          
           this._moveBall(target, route);
 
-          this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells);
+          this._ballsIsDeleted = MatchesDeleter.deleteMatches(this.gridCells);
           
           if (!this._ballsIsDeleted) {
             BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
