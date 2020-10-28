@@ -2,23 +2,18 @@
  * IMPORTS
  */
 import './css/style.css';
-import { Playground } from './js/Playground'
-import { Scoreboard } from './js/Scoreboard';
-/**
- * CONSTANTS
- */
-const playgroundColumns = 9;
-const playgroundRows = 9;
-const howManyBallsToGenerate = 3;
+import { HTMLElement } from './js/HTML/HTMLElement/HTMLElement';
+import { Lines } from './js/LinesApp/Lines/Lines';
 /**
  * SCRIPT
  */
-let playground = new Playground(
-  playgroundRows,
-  playgroundColumns,
-  howManyBallsToGenerate
-);
-new Scoreboard('.scoreboard').bindWithElement('.playground', playground);
-// refresh
-let button = document.querySelector('.restart-btn__button');
-button.addEventListener('click', playground.clear.bind(playground));
+const root = document.querySelector('.root');
+
+const wrapper = new HTMLElement('div', 'wrapper');
+wrapper.drawAdjacent('beforeend', root);
+
+const wrapperMain = new HTMLElement('div', 'wrapper__main');
+wrapperMain.drawAdjacent('beforeend', wrapper.HTMLElement);
+
+const lines = new Lines();
+lines.drawElementAdjacent('beforeend', wrapperMain.HTMLElement);
