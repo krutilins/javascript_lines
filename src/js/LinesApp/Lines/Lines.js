@@ -44,9 +44,11 @@ export class Lines {
         
       } else if (target.closest('.playground')) {
         
-        this._playground.playgroundInteraction(event);
-        this._scoreboard.update();
-
+        this._playground.playgroundInteraction(event)
+        .then(() => {
+          this._scoreboard.update();
+        })
+        
       }
     
     }

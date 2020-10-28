@@ -28,6 +28,7 @@ export class Playground{
 
     this.countBallsToGenerate = 3;
     BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
+    localStorage.setItem('score', 0);
 
     this.gridCells = grid.gridCells;
     this.rows = grid.rows;
@@ -82,9 +83,9 @@ export class Playground{
 
   _updateLocaleStorage() {
     
-    const score = Number(localStorage.getItem('score')) + this._ballsIsDeleted;
+    const score = Number(localStorage.getItem('score')) + this._countDeletedBalls;
     localStorage.setItem('score', score);
-    this._ballsIsDeleted = 0;
+    this._countDeletedBalls = 0;
 
     if (score > Number(localStorage.getItem('recored'))) {
       
@@ -112,74 +113,81 @@ export class Playground{
     const promises = [];
 
     for (let i = 1; i < route.length - 1; i++) {
+      
       promises.push(new Promise((resolve, reject) => {
         setTimeout(() => {
           const smallBall = document.createElement('div');
           smallBall.classList.add('playground__ball_small');
           this.gridCells[route[i][1]][route[i][0]].insertAdjacentElement('beforeend', smallBall);
+          
           setTimeout(() => {
             smallBall.remove();
             resolve();
           }, 50);
+        
         }, 50 * i, this);
       }))
+    
     }
-    console.log();
+
     return Promise.all(promises);
 
   }
 
-  playgroundInteraction(event) {
-    
-    let target = event.target;
-    
-    if (!target.classList.contains(`playground`)) {
-    
-      if (!target.classList.contains('playground__cell')) {
-        
-        target = target.parentElement;
-      
-      }
-      
-      if (target.firstElementChild) {
-      
-        if (this._selectedCell) {
-          
-          this._selectedCell.classList.remove('playground__cell_selected');
-        
-        }
-        
-        target.classList.add('playground__cell_selected');
-        this._selectedCell = target;
-        
-      } else if (this._selectedCell) {
-        
-        const route = this._getRouteFromSelectedTo(target);
+  playgroundInteraction(event) {   
+    return new Promise((resolve, reject) => {
 
-        if (route.length) {
-         
-          this._drawLines(route)
-          .then(() => {
-            console.log('asdf')
-            this._moveBall(target, route)
+      let target = event.target;
+    
+      if (!target.classList.contains(`playground`)) {
+      
+        if (!target.classList.contains('playground__cell')) {
+          target = target.parentElement;
+        }
+        
+        if (target.firstElementChild) {
+        
+          if (this._selectedCell) {
+            this._selectedCell.classList.remove('playground__cell_selected');
+          }
           
-            this._ballsIsDeleted = MatchesDeleter.deleteMatches(this.gridCells);
-            
-            if (!this._ballsIsDeleted) {
-              BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
-              this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells)
-            }
-            
-            this._updateLocaleStorage();
+          target.classList.add('playground__cell_selected');
+          this._selectedCell = target;
           
-          })
+          resolve();
+          
+        } else if (this._selectedCell) {
+          
+          const route = this._getRouteFromSelectedTo(target);
+          if (route.length) {
+          
+            this._drawLines(route)
+            .then(() => {
+              this._moveBall(target, route);
+            
+              this._countDeletedBalls = MatchesDeleter.deleteMatches(this.gridCells);
+              
+              if (!this._countDeletedBalls) {
+              
+                BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
+                this._countDeletedBalls += MatchesDeleter.deleteMatches(this.gridCells)
+              
+              }
+              
+              this._updateLocaleStorage();
+            
+              resolve();
+            })
+          
+          }
         
         }
-      
-      }
-    
-    }
   
-  }
+      }
 
+
+    }) 
+
+  }
+    
 }
