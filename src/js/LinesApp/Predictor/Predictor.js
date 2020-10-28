@@ -1,7 +1,7 @@
 import { HTMLElement } from "../../HTML/HTMLElement/HTMLElement";
 import { HTMLGrid } from "../../HTML/HTMLGrid/HTMLGrid";
 
-export class Predictor{
+export class Predictor {
   constructor(app) {
     this._app = app;
   }

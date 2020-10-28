@@ -137,6 +137,12 @@ body, html {
   border-radius: 25px;
   background-color: yellow;
 }
+.playground__ball_small {
+  height: 15px;
+  width: 15px;
+  border-radius: 25px;
+  background-color: white;
+}
 
 .balls-predictor {
   display: inline-flex;

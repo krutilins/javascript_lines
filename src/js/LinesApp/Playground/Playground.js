@@ -13,9 +13,13 @@ export class Playground{
   }
   
   initPlayground() {
+    
     if (this._playground) {
+      
       this._playground.clear();
+    
     }
+    
     this._playground = new HTMLElement('div', 'playground');
     this._playground.drawAdjacent('beforeend', this._app.HTMLElement);
     
@@ -39,33 +43,34 @@ export class Playground{
     let x2 = null;
     let y2 = null;
     
-    let matrix = [];
+    const matrix = [];
     
     for (let i = 0; i < this.rows; i++) {
       
       matrix[i] = [];
+      
       for (let j = 0; j < this.columns; j++) {
       
         if (this.gridCells[i][j].firstElementChild) {
-      
+        
           matrix[i][j] = -1;
-      
+        
         } else {
-      
+        
           matrix[i][j] = 0;
-      
+        
         }
+
         if (this.gridCells[i][j] == this._selectedCell) {
-      
-          x1 = i;
-          y1 = j;
-      
-        }
-        if (this.gridCells[i][j] == element) {
-      
-          x2 = i;
-          y2 = j;
-      
+        
+          x1 = j;
+          y1 = i;
+        
+        } else if (this.gridCells[i][j] == element) {
+         
+          x2 = j;
+          y2 = i;
+        
         }
     
       }
@@ -77,11 +82,16 @@ export class Playground{
   }
 
   _updateLocaleStorage() {
-
-    localStorage.setItem('score', this._ballsIsDeleted);
     
-    const recored = this._ballsIsDeleted > Number(localStorage.getItem('recored')) ? this._ballsIsDeleted : Number(localStorage.getItem('recored'));
-    localStorage.setItem('recored',  recored);
+    const score = Number(localStorage.getItem('score')) + this._ballsIsDeleted;
+    localStorage.setItem('score', score);
+    this._ballsIsDeleted = 0;
+
+    if (score > Number(localStorage.getItem('recored'))) {
+      
+      localStorage.setItem('recored',  score);
+
+    }
   
   }
 
@@ -92,14 +102,12 @@ export class Playground{
   }
 
   _moveBall(target, route) {
-
+    
     target.insertAdjacentElement('beforeend', this._selectedCell.firstElementChild);
     this._selectedCell.classList.remove('playground__cell_selected')
     this._selectedCell = null;
   
   }
-
-  
 
   playgroundInteraction(event) {
     
@@ -134,8 +142,10 @@ export class Playground{
 
           this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells);
           
-          BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
-          this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells)
+          if (!this._ballsIsDeleted) {
+            BallsGenerator._generateBalls('playground', 'playground__cell', this.countBallsToGenerate);
+            this._ballsIsDeleted += MatchesDeleter.deleteMatches(this.gridCells)
+          }
           
           this._updateLocaleStorage();
         

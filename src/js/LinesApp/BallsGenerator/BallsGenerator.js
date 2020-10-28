@@ -8,12 +8,12 @@ export class BallsGenerator {
     const emptyCells = document.querySelectorAll(`.${parentClass} .${shouldBeFilledClass}:empty`);
     const cellsForFilling = Utils.generateUniqueNumbers(countBallsToGenerate, ZERO, emptyCells.length);
     
-    if (cellsForFilling !== undefined) {
+    if (cellsForFilling) {
     
       cellsForFilling.forEach((item) => {
        
         const ball = document.createElement('div');
-        ball.classList.add(`${parentClass}__ball_${BALL_COLORS[Utils.randomInteger(0, BALL_COLORS.length)]}`);
+        ball.classList.add(`${parentClass}__ball_${BALL_COLORS[Utils.getRandomInteger(0, BALL_COLORS.length)]}`);
         emptyCells[item].insertAdjacentElement('beforeend', ball);
       
       });

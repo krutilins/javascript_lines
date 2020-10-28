@@ -1,11 +1,11 @@
 import { HTMLElement } from "../../HTML/HTMLElement/HTMLElement";
+import { RestartButton } from "../RestartButton/RestartButton";
 import { Scoreboard } from "../Scoreboard/Scoreboard";
 import { Playground } from "../Playground/Playground";
 import { Predictor } from "../Predictor/Predictor";
-import { RestartButton } from "../RestartButton/RestartButton";
-import { BallsGenerator } from "../BallsGenerator/BallsGenerator";
 
 export class Lines {
+
   drawElementAdjacent(position, parentElement) {
 
     this._parentElement = parentElement;

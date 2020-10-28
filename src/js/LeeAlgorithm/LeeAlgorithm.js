@@ -8,75 +8,76 @@ export class LeeAlgorithm {
 
   static _pathfinder(matrix, x1, y1, x2, y2) {
     
-    const toVisit = [[x1, y1]]; // Initialise at the start square
     let step = 1;
-
-    while(toVisit.length) { // While there are still squares to visit
-
-      let x = toVisit[0][0];
-      let y = toVisit[0][1];
-
-      for (let i = x - 1; i < x + 2; i++)  {  // -1, 0, 1
-        
-        for (let j = y - 1; j < y + 2; j++) { // -1, 0, 1
-
-          if (this._neighbourCheck(matrix, x, y, x1, y1, i, j, 0)) {
-
-            matrix[i][j] = step++;
-            toVisit.push([i, j]);
-
+    matrix[y1][x1] = step;
+    
+    while (step < matrix.length * matrix[0].length) {
+      for (let x = 0; x < matrix.length; x++) {
+        for (let y = 0; y < matrix[0].length; y++) {
+          if (matrix[x][y] == step) {
+            // right
+            if (x + 1 < matrix.length && matrix[x + 1][y] == 0) {
+              matrix[x + 1][y] = step + 1;
+            }
+            // left
+            if (x - 1 >= 0 && matrix[x - 1][y] == 0) {
+              matrix[x - 1][y] = step + 1;
+            }
+            // up
+            if (y + 1 < matrix[0].length && matrix[x][y + 1] == 0) {
+              matrix[x][y + 1] = step + 1;
+            }
+            // down
+            if (y - 1 >= 0 && matrix[x][y - 1] == 0) {
+              matrix[x][y - 1] = step + 1;
+            }
           }
-
         }
-      
       }
-      
-      toVisit.shift();
-      
+      step++;
     }
 
-    return [ matrix, x2, y2, step ];
+    return [ matrix, x2, y2];
   
   };
 
   static _backtrace(matrix, x2, y2) { 
-    if (matrix[x2][y2]) {
+    if (matrix[y2][x2]) {
 
-      let previousValue = matrix[x2][y2];
+      let previousValue = matrix[y2][x2];
       const successfulRoute = [];
 
       let x = x2;
       let y = y2;
 
-      while (previousValue) {
+      successfulRoute.push([x, y]);
+      while (previousValue != 1) {
         
-        if (y + 1 < matrix[0].length && matrix[x][y] - matrix[x][y + 1] == 1) {
+        if (x + 1 < matrix[0].length && matrix[y][x] - matrix[y][x + 1] == 1) {
     
           // right
-          y++;
-    
-        } else if (y - 1 >= 0 && matrix[x][y] - matrix[x][y - 1] == 1) {
-    
-          // left
-          y--;
-    
-        } else if (x - 1 >= 0 && matrix[x][y] - matrix[x - 1][y] == 1) {
-    
-          // up
-          x--;
-    
-        } else if (x + 1 < matrix.length && matrix[x][y] - matrix[x + 1][y] == 1) {
-    
-          // down
           x++;
     
+        } else if (x - 1 >= 0 && matrix[y][x] - matrix[y][x - 1] == 1) {
+    
+          // left
+          x--;
+    
+        } else if (y - 1 >= 0 && matrix[y][x] - matrix[y - 1][x] == 1) {
+    
+          // up
+          y--;
+    
+        } else if (y + 1 < matrix.length && matrix[y][x] - matrix[y + 1][x] == 1) {
+    
+          // down
+          y++;
+    
         }
-        
         successfulRoute.push([x, y]);
         previousValue--;
     
       }
-
       return successfulRoute.reverse(); // Reverse the array so it's at the start
     
     } else {

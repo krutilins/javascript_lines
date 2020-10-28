@@ -31,6 +31,8 @@ export class HTMLGrid extends HTMLElement {
 
     delete this.HTMLElement;
   
+    return this;
+    
   }
   
   clear() {
